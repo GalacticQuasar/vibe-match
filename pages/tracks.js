@@ -94,7 +94,7 @@ const Tracks = () => {
       <h1>Your Top Tracks</h1>
       <ul>
         {tracks.map((track) => (
-          <li key={track.id}>{track.id}</li>
+          <li key={track.id}>{track.name}</li>
         ))}
       </ul>
     </div>

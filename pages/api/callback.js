@@ -21,7 +21,7 @@ export default async function handler(req, res) {
   try {
     const response = await axios(authOptions);
     const accessToken = response.data.access_token;
-    res.redirect(`/playlists?access_token=${accessToken}`);
+    res.redirect(`/tracks?access_token=${accessToken}`);
   } catch (error) {
     console.error(error);
     res.redirect('/?error=invalid_token');
