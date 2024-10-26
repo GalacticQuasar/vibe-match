@@ -20,13 +20,13 @@ const Tracks = () => {
             });
 
             for (let i = 0; i < response.data.items.length; i++) {
-              const anudder = await axios.get(`https://api.spotify.com/v1/audio-features/${response.data.items[i].id}`, {
+              const audioFeatures = await axios.get(`https://api.spotify.com/v1/audio-features/${response.data.items[i].id}`, {
                 headers: {
                   Authorization: `Bearer ${accessToken}`,
                 },
               });
 
-              console.log(anudder)
+              console.log(anudder);
             }
 
             setTracks(response.data.items);
