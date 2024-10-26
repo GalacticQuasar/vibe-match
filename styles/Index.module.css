@@ -1,0 +1,33 @@
+.loginButton {
+    display: inline-block;
+    padding: 12px 12px;
+    font-size: 20px;
+    width: fit-content;
+    box-sizing: border-box;
+    text-transform: uppercase;
+    background-color: transparent;
+    transition: 0.5s;
+    letter-spacing: 4px;
+    color: #17c47c;
+    border-radius: 12px;
+    box-shadow:
+      0 0 0px #17c47c,
+      0 0 10px #17c47c,
+      0 0 0px #17c47c,
+      0 0 0px #17c47c;
+  }
+
+  .loginButton:hover {
+    box-shadow:
+      0 0 5px #17c47c,
+      0 0 25px #17c47c,
+      0 0 50px #17c47c,
+      0 0 200px #17c47c;
+  }
+
+  .header {
+    margin: auto;
+    width: 50%;
+    border: 3px solid green;
+    padding: 10px;
+  }

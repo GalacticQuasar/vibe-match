@@ -1,9 +1,16 @@
+import styles from '../styles/Index.module.css';
+import Image from 'next/image'
 const Home = () => {
   return (
-    <div>
-      <h1>Welcome to Spotify Playlist App</h1>
+    <div className = {styles.header}>
+      <Image
+        src="/images/vibe-match-logo.jpg"
+        width={500}
+        height={500}
+        alt="Vibe Match Logo"
+      />
       <a href="/api/login">
-        <button>Login with Spotify</button>
+        <button className={styles.loginButton}>Login with Spotify</button>
       </a>
     </div>
   );
