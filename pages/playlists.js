@@ -26,7 +26,7 @@ const Tracks = () => {
                 },
               });
 
-              console.log(anudder);
+              console.log(audioFeatures);
             }
 
             setTracks(response.data.items);
