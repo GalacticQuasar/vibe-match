@@ -49,6 +49,17 @@ const Tracks = () => {
               userFeatures.danceability += features.danceability;
               userFeatures.liveness += features.liveness;
             });
+
+            userFeatures = {  //TODO: GET USER ID SOMEWHERE
+              id: "",
+              instrumentalness: instrumentalness /= response.data.items.length,
+              acousticness: acousticness /= response.data.items.length,
+              energy: energy /= response.data.items.length,
+              speechiness: speechiness /= response.data.items.length,
+              valence: valence /= response.data.items.length,
+              danceability: danceability /= response.data.items.length,
+              liveness: liveness /= response.data.items.length,
+            };
             
             // Wait for all promises to resolve
             await Promise.all(promises);
