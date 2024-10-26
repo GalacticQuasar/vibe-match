@@ -21,7 +21,6 @@ const Tracks = () => {
             });
 
             let userFeatures = {
-              id: "",
               instrumentalness: 0,
               acousticness: 0,
               energy: 0,
@@ -37,8 +36,7 @@ const Tracks = () => {
                   Authorization: `Bearer ${accessToken}`,
                 },
               });
-              
-              // Make sure to access the data correctly
+
               const features = audioFeatures.data;
               
               userFeatures.instrumentalness += features.instrumentalness;
@@ -49,17 +47,6 @@ const Tracks = () => {
               userFeatures.danceability += features.danceability;
               userFeatures.liveness += features.liveness;
             });
-
-            userFeatures = {  //TODO: GET USER ID SOMEWHERE
-              id: "",
-              instrumentalness: instrumentalness /= response.data.items.length,
-              acousticness: acousticness /= response.data.items.length,
-              energy: energy /= response.data.items.length,
-              speechiness: speechiness /= response.data.items.length,
-              valence: valence /= response.data.items.length,
-              danceability: danceability /= response.data.items.length,
-              liveness: liveness /= response.data.items.length,
-            };
             
             // Wait for all promises to resolve
             await Promise.all(promises);
@@ -71,8 +58,17 @@ const Tracks = () => {
                 userFeatures[key] /= trackCount;
               });
             }
+
+            const userDetails = await axios.get('https://api.spotify.com/v1/me', {
+              headers: {
+                Authorization: `Bearer ${accessToken}`,
+              },
+            });
+
+            userFeatures.id = userDetails.data.id;
+            userFeatures.name = userDetails.data.display_name;
             
-            console.log(userFeatures);            
+            console.log(userFeatures);
 
             setTracks(response.data.items);
           } catch (err) {
