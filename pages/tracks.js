@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import ollama from 'ollama/browser'
 
 const Tracks = () => {
   const [tracks, setTracks] = useState([]);
+  const [message, setMessage] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -67,10 +69,17 @@ const Tracks = () => {
 
             userFeatures.id = userDetails.data.id;
             userFeatures.name = userDetails.data.display_name;
-            
+
+            const ollamaResponse = await ollama.chat({
+              model: 'llama3.2',
+              messages: [{ role: 'user', content: `Given the following values, provide a short description of my music taste in less than 50 words (NO NUMBERS): ${JSON.stringify(userFeatures)}` }],
+            });
+            console.log(ollamaResponse.message.content);
+
             console.log(userFeatures);
 
             setTracks(response.data.items);
+            setMessage(ollamaResponse.message.content);
           } catch (err) {
             setError(err.message);
           } finally {
@@ -97,6 +106,12 @@ const Tracks = () => {
           <li key={track.id}>{track.name}</li>
         ))}
       </ul>
+      {message && (
+        <div>
+          <h2>Music Taste Description</h2>
+          <p>{message}</p>
+        </div>
+      )}
     </div>
   );
 };
