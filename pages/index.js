@@ -7,9 +7,9 @@ export default function Home() {
       <div className="w-full max-w-md px-4 py-8 space-y-8">
         <div className="flex justify-center">
           <Image
-            src="/images/vibe-match-logo.jpg"
-            width={200}
-            height={200}
+            src="/images/vibe-match-logo.png"
+            width={500}
+            height={500}
             alt="Vibe Match Logo"
             className="rounded-full"
           />
