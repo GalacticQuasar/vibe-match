@@ -180,9 +180,16 @@ const Tracks = () => {
       <div className="shadow w-1/2 h-800 p-6 border-2 border-[#1DB954] bg-black text-white rounded-lg shadow-glow shadow-[0_0px_20px_rgba(29,185,84,0.5)]"> {/* Centered shadow */}
         <h1 className="text-4xl font-bold mb-4">Similar Users</h1> {/* Title for similar users */}
         <ul className="list-disc pl-5 mb-6"> {/* Add bullet points with left padding and margin-bottom */}
+        <div className="flex flex-wrap justify-center gap-4">
+        <div className="flex flex-wrap justify-center gap-4">
           {sortedUsers.map((array) => (
-            <li className="text-lg mb-2">{`User: ${array[0]} | Percent Match: ${array[1]} %`}</li>
+            <div className="bg-green-500 text-white p-6 rounded-lg shadow-lg w-52 flex flex-col items-center" key={array[0]}>
+              <h3 className="text-1xl font-bold">{array[0]}</h3>
+              <p className="text-1xl font-bold">{`${array[1].toFixed(2)}% Match`}</p>
+            </div>
           ))}
+        </div>
+        </div>
         </ul>
         {message && (
           <div>
