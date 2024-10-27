@@ -7,7 +7,7 @@ const Tracks = () => {
   const [message, setMessage] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [allUsers, setAllUsers] = useState(null);
+  const [sortedUsers, setSortedUsers] = useState(null);
 
   useEffect(() => {
     const fetchTracks = async () => {
@@ -96,7 +96,33 @@ const Tracks = () => {
             const allUsersResponse = await fetch(`/api/users`);
             const allUsers = await allUsersResponse.json();
             console.log(`ALL USERS: ${JSON.stringify(allUsers)}`);
-            setAllUsers(allUsers);
+
+            // SORTING
+            let dictionary = {};
+            for (let i = 0; i < allUsers.length; i++) {
+                let difference = 
+                    (Math.abs(userFeatures.instrumentalness - allUsers[i].instrumentalness)) +
+                    (Math.abs(userFeatures.acousticness - allUsers[i].acousticness)) +
+                    (Math.abs(userFeatures.energy - allUsers[i].energy)) +
+                    (Math.abs(userFeatures.speechiness - allUsers[i].speechiness)) +
+                    (Math.abs(userFeatures.valence - allUsers[i].valence)) +
+                    (Math.abs(userFeatures.danceability - allUsers[i].danceability)) +
+                    (Math.abs(userFeatures.liveness - allUsers[i].liveness));
+                
+                difference = (1 - (difference / 7.0)) * 100; // Adjusted for max difference based on features
+                dictionary[allUsers[i].name] = difference;
+            }
+
+            console.log(dictionary);
+
+            // Step 1: Get entries (key-value pairs) and sort them by value
+            const sortedKeyArray = Object.entries(dictionary).sort((a, b) => b[1] - a[1]);
+
+            console.log(sortedKeyArray);
+
+            // Set the sorted users
+            setSortedUsers(sortedKeyArray);
+
 
             // LLAMA THINGS
             const ollamaResponse = await ollama.chat({
@@ -143,7 +169,6 @@ const Tracks = () => {
                 src={`https://open.spotify.com/embed/track/${track.id}`} // Embed URL for Spotify track
                 width="100%" // Make iframe responsive
                 height="80" // Adjust height as needed
-                frameBorder="0" // No border around iframe
                 allow="encrypted-media" // Allow encrypted media playback
                 className="rounded-lg" // Rounded corners for iframe
               ></iframe>
@@ -155,9 +180,9 @@ const Tracks = () => {
       <div className="shadow w-1/2 h-800 p-6 border-2 border-[#1DB954] bg-black text-white rounded-lg shadow-glow shadow-[0_0px_20px_rgba(29,185,84,0.5)]"> {/* Centered shadow */}
         <h1 className="text-4xl font-bold mb-4">Similar Users</h1> {/* Title for similar users */}
         <ul className="list-disc pl-5 mb-6"> {/* Add bullet points with left padding and margin-bottom */}
-          <li className="text-lg mb-2">Add here</li> {/* Placeholder list item */}
-          <li className="text-lg mb-2">Add here</li> {/* Placeholder list item */}
-          <li className="text-lg mb-2">Add here</li> {/* Placeholder list item */}
+          {sortedUsers.map((array) => (
+            <li className="text-lg mb-2">{`User: ${array[0]} | Percent Match: ${array[1]} %`}</li>
+          ))}
         </ul>
         {message && (
           <div>
