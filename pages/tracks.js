@@ -95,25 +95,53 @@ const Tracks = () => {
     fetchTracks();
   }, []);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-black text-white">
+        <div className="w-12 h-12 border-4 border-t-[#1DB954] border-gray-200 rounded-full animate-spin"></div>
+      </div>
+    );
+  }
   if (error) return <div>Error: {error}</div>;
 
-  return (
-    <div>
-      <h1>Your Top Tracks</h1>
-      <ul>
-        {tracks.map((track) => (
-          <li key={track.id}>{track.name}</li>
-        ))}
-      </ul>
-      {message && (
-        <div>
-          <h2>Music Taste Description</h2>
-          <p>{message}</p>
+  return ( 
+    <div className="bg-black min-h-screen p-6 flex justify-between"> {/* Black background with flexbox layout */}
+      {/* Your Top Tracks Box */}
+      <div className="shadow w-1/2 h-800 p-6 border-2 border-[#1DB954] bg-black text-white rounded-lg mr-6 shadow-glow shadow-[0_0px_20px_rgba(29,185,84,0.5)]"> {/* Centered shadow */}
+      <h1 className="text-4xl font-bold mb-4">Your Top Tracks:</h1> {/* Margin-bottom for spacing */}
+        <div className="flex flex-col space-y-3"> {/* Flex column for spacing between cards */}
+          {tracks.map((track) => (
+            <div key={track.id} className="w-full">
+              <iframe
+                src={`https://open.spotify.com/embed/track/${track.id}`} // Embed URL for Spotify track
+                width="100%" // Make iframe responsive
+                height="80" // Adjust height as needed
+                frameBorder="0" // No border around iframe
+                allow="encrypted-media" // Allow encrypted media playback
+                className="rounded-lg" // Rounded corners for iframe
+              ></iframe>
+            </div>
+          ))}
         </div>
-      )}
+      </div>
+      {/* Similar Users Box */}
+      <div className="shadow w-1/2 h-800 p-6 border-2 border-[#1DB954] bg-black text-white rounded-lg shadow-glow shadow-[0_0px_20px_rgba(29,185,84,0.5)]"> {/* Centered shadow */}
+        <h1 className="text-4xl font-bold mb-4">Similar Users</h1> {/* Title for similar users */}
+        <ul className="list-disc pl-5 mb-6"> {/* Add bullet points with left padding and margin-bottom */}
+          <li className="text-lg mb-2">Add here</li> {/* Placeholder list item */}
+          <li className="text-lg mb-2">Add here</li> {/* Placeholder list item */}
+          <li className="text-lg mb-2">Add here</li> {/* Placeholder list item */}
+        </ul>
+        {message && (
+          <div>
+            <h2 className="text-4xl font-bold mb-4">Music Taste Description:</h2> {/* Margin-bottom for spacing */}
+            <p className="text-lg mb-2">{message}</p> {/* Slightly lighter text color for contrast */}
+          </div>
+        )}
+      </div>
     </div>
   );
+  
 };
 
 export default Tracks;
