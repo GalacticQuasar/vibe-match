@@ -7,6 +7,7 @@ const Tracks = () => {
   const [message, setMessage] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [allUsers, setAllUsers] = useState(null);
 
   useEffect(() => {
     const fetchTracks = async () => {
@@ -69,14 +70,40 @@ const Tracks = () => {
 
             userFeatures.id = userDetails.data.id;
             userFeatures.name = userDetails.data.display_name;
+            console.log(userFeatures);
 
+            // MONGO THINGS
+            // Check if user exists in MongoDB
+            const fetchedUser = await fetch(`/api/users?id=${userFeatures.id}`);
+
+            // If user does not exist, add to DB
+            if (fetchedUser.status == 404) {
+              const postResponse = await fetch('/api/users', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(userFeatures),
+              });
+
+              if (!postResponse.ok) {
+                throw new Error('Failed to add user to the database');
+              }
+            } else {
+              console.log("User already exists in DB");
+            }
+
+            const allUsersResponse = await fetch(`/api/users`);
+            const allUsers = await allUsersResponse.json();
+            console.log(`ALL USERS: ${JSON.stringify(allUsers)}`);
+            setAllUsers(allUsers);
+
+            // LLAMA THINGS
             const ollamaResponse = await ollama.chat({
               model: 'llama3.2',
               messages: [{ role: 'user', content: `Given the following values, provide a short description of my music taste in less than 50 words (NO NUMBERS): ${JSON.stringify(userFeatures)}` }],
             });
             console.log(ollamaResponse.message.content);
-
-            console.log(userFeatures);
 
             setTracks(response.data.items);
             setMessage(ollamaResponse.message.content);
