@@ -10,15 +10,15 @@ Welcome to **Vibe Match**, a web application designed to help users discover the
 
 - **Personalized Music Taste Description**: Using advanced models, we generate a concise description of the user's music taste based on the collected audio features, allowing users to understand their vibe in just a few words. ✍️
 
-- **Similar Users Display**: The app showcases the top 5 users in the database with the most similar music tastes, fostering a community of music lovers who can connect and share their favorite tracks! 👥
+- **Similar Users Display**: The app showcases the top users in the database with the most similar music tastes, fostering a community of music lovers who can connect and share their favorite tracks! 👥
 
 ## 💻 Technologies Used
 
 - **Next.js**: This powerful React framework enables server-side rendering, optimizing our application for performance and SEO while allowing for smooth navigation. 🌐
 
-- **React**: The backbone of our user interface, React allows us to build reusable components and manage the application's state seamlessly. 🛠️
+- **MongoDB**: This NoSQL database framework holds our user data and makes it possible to compare your tastes with our other users. 📂
 
-- **Axios**: We use Axios to make efficient API requests to Spotify's services, retrieving user data and track information in a structured manner. 📡
+- **Ollama**: This open source library allows us to run llama LLM locally and powers the personalization of the application. ⌨️
 
 - **Tailwind CSS**: For a modern and responsive design, Tailwind CSS provides utility classes that enable rapid styling and customization of components. 🎨
 
@@ -40,7 +40,7 @@ To get started with Vibe Match, follow these steps:
 
 2. **Install Dependencies**: Navigate into the project directory and install the necessary dependencies using your package manager.
 
-3. **Environment Variables**: Create a `.env.local` file in the root directory and add your Spotify credentials, including your client ID, client secret, and redirect URI.
+3. **Environment Variables**: Create a `.env.local` file in the root directory and add your Spotify development credentials, including your client ID, client secret, and redirect URI.
 
 4. **Start the Development Server**: Run the development server and open your browser to view the application.
 
@@ -50,13 +50,8 @@ Vibe Match is more than just an application; it's a platform for music lovers to
 
 Join us on this musical journey, and let's vibe together! If you have any questions or suggestions, feel free to reach out! 🎤
 
-## 📝 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
 ## 🤝 Acknowledgments
 
 - [Spotify Web API](https://developer.spotify.com/documentation/web-api/) for providing access to a wealth of music data.
 - [Next.js](https://nextjs.org/) for powering our application with server-side rendering capabilities.
 - [Tailwind CSS](https://tailwindcss.com/) for enabling rapid styling and customization.
-- All the amazing developers who contributed to making this project a reality! 🙌
